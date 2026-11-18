@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "deephedge"
+version = "1.0.0"
+description = "Deep hedging of a European basket call under proportional transaction costs, with the dynamic-programming optimum and the classical no-trade rules as benchmarks."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Facundo Kuzis" }]
+dependencies = [
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "torch>=2.2",
+    "matplotlib>=3.8",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.5"]
+
+[project.scripts]
+deephedge = "deephedge.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+# the networks of the thesis and its published tables travel with the package (--pretrained and check need them)
+deephedge = ["pretrained/*.pt", "thesis_tables.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+markers = ["slow: long end-to-end runs, excluded by default (run with -m slow)"]
+addopts = "-m 'not slow'"
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "N"]
+ignore = ["N802", "N803", "N806"]  # the thesis notation (S, K, N, W) is kept in a few formulas

@@ -1,0 +1,16 @@
+# Exact versions the tests were run with (Python 3.11.9, Windows 11).
+# pyproject.toml lists the minimum versions; this file pins the tested environment.
+#
+#     pip install -r requirements.txt
+#     pip install -e . --no-deps
+#
+# The networks of the thesis were trained with the CUDA 12.1 build of PyTorch (2.5.1+cu121). For a GPU, install it first from pytorch.org,
+# e.g. pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cu121
+numpy==2.4.6
+scipy==1.16.1
+torch==2.5.1
+matplotlib==3.9.0
+
+# development
+pytest==9.1.1
+ruff==0.15.7
